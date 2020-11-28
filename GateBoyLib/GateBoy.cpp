@@ -1493,21 +1493,13 @@ void GateBoy::tock_slow() {
 
 
 
-
-
-
-
-  // needs 3
-  int xymu_loop_count = 3;
-XYMU_LOOP:
-
 #pragma region Sprite_Scanner
   {
     // 32 + 4 + 2 + 1 = 39
     /*#p28.FETO*/ wire _FETO_SCAN_DONEp = and4(sprite_scanner.YFEL_SCAN0.qp(), sprite_scanner.WEWY_SCAN1.qp(), sprite_scanner.GOSO_SCAN2.qp(), sprite_scanner.FONY_SCAN5.qp());
 
     /* p28.GAVA*/ wire _GAVA_ABxxEFxx = or2(_FETO_SCAN_DONEp, _XUPY_ABxxEFxx_s);
-    /* p28.YFEL*/ sprite_scanner.YFEL_SCAN0.dff17(_GAVA_ABxxEFxx,                   _ANOM_LINE_RSTn, sprite_scanner.YFEL_SCAN0.qn());
+    /* p28.YFEL*/ sprite_scanner.YFEL_SCAN0.dff17(_GAVA_ABxxEFxx,                 _ANOM_LINE_RSTn, sprite_scanner.YFEL_SCAN0.qn());
     /* p28.WEWY*/ sprite_scanner.WEWY_SCAN1.dff17(sprite_scanner.YFEL_SCAN0.qn(), _ANOM_LINE_RSTn, sprite_scanner.WEWY_SCAN1.qn());
     /* p28.GOSO*/ sprite_scanner.GOSO_SCAN2.dff17(sprite_scanner.WEWY_SCAN1.qn(), _ANOM_LINE_RSTn, sprite_scanner.GOSO_SCAN2.qn());
     /* p28.ELYN*/ sprite_scanner.ELYN_SCAN3.dff17(sprite_scanner.GOSO_SCAN2.qn(), _ANOM_LINE_RSTn, sprite_scanner.ELYN_SCAN3.qn());
@@ -1528,6 +1520,14 @@ XYMU_LOOP:
   /* p28.APAR*/ wire _APAR_SCANNINGn = not1(_ACYL_SCANNINGp);
 
 #pragma endregion
+
+
+
+
+
+  // needs 3
+  int xymu_loop_count = 3;
+XYMU_LOOP:
 
   {
     /* p27.PYNU*/ pix_pipe.PYNU_WIN_MODE_Ap.nor_latch(pix_pipe.NUNU_WX_MATCH_Bp.qp(), _XOFO_WIN_RSTp);
